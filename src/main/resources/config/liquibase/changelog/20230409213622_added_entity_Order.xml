@@ -20,19 +20,22 @@
             <column name="total_price" type="double">
                 <constraints nullable="false" />
             </column>
-            <column name="delivery_address" type="varchar(100)">
+            <column name="status" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="delivery_city" type="varchar(50)">
+            <column name="delivery_address" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="delivery_country" type="varchar(50)">
+            <column name="delivery_city" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="delivery_country" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <column name="delivery_time" type="${datetimeType}">
                 <constraints nullable="false" />
             </column>
-            <column name="user_id" type="bigint">
+            <column name="client_id" type="${uuidType}">
                 <constraints nullable="true" />
             </column>
             <column name="restaurant_id" type="${uuidType}">
@@ -63,6 +66,7 @@
             <column name="id" type="${uuidType}"/>
             <column name="order_date" type="date"/>
             <column name="total_price" type="numeric"/>
+            <column name="status" type="string"/>
             <column name="delivery_address" type="string"/>
             <column name="delivery_city" type="string"/>
             <column name="delivery_country" type="string"/>

@@ -1,0 +1,28 @@
+{
+  "coopcycleApp": {
+    "cooperativelocal": {
+      "home": {
+        "title": "Cooperativelocals",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Cooperativelocal を追加",
+        "createOrEditLabel": "Cooperativelocalを追加または編集",
+        "notFound": "No Cooperativelocals found"
+      },
+      "created": "A new Cooperativelocal is created with identifier {{ param }}",
+      "updated": "A Cooperativelocal is updated with identifier {{ param }}",
+      "deleted": "A Cooperativelocal is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Cooperativelocal {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "Cooperativelocal"
+      },
+      "id": "Id",
+      "name": "Name",
+      "city": "City",
+      "country": "Country",
+      "client": "Client",
+      "restaurant": "Restaurant"
+    }
+  }
+}

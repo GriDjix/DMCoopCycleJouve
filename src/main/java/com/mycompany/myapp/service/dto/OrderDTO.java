@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service.dto;
 
+import com.mycompany.myapp.domain.enumeration.OrderStatus;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -24,21 +25,21 @@ public class OrderDTO implements Serializable {
     private Double totalPrice;
 
     @NotNull
-    @Size(min = 5, max = 100)
+    private OrderStatus status;
+
+    @NotNull
     private String deliveryAddress;
 
     @NotNull
-    @Size(min = 3, max = 50)
     private String deliveryCity;
 
     @NotNull
-    @Size(min = 3, max = 50)
     private String deliveryCountry;
 
     @NotNull
     private ZonedDateTime deliveryTime;
 
-    private UserDTO user;
+    private ClientDTO client;
 
     private RestaurantDTO restaurant;
 
@@ -64,6 +65,14 @@ public class OrderDTO implements Serializable {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public String getDeliveryAddress() {
@@ -98,12 +107,12 @@ public class OrderDTO implements Serializable {
         this.deliveryTime = deliveryTime;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     public RestaurantDTO getRestaurant() {
@@ -142,11 +151,12 @@ public class OrderDTO implements Serializable {
             "id='" + getId() + "'" +
             ", orderDate='" + getOrderDate() + "'" +
             ", totalPrice=" + getTotalPrice() +
+            ", status='" + getStatus() + "'" +
             ", deliveryAddress='" + getDeliveryAddress() + "'" +
             ", deliveryCity='" + getDeliveryCity() + "'" +
             ", deliveryCountry='" + getDeliveryCountry() + "'" +
             ", deliveryTime='" + getDeliveryTime() + "'" +
-            ", user=" + getUser() +
+            ", client=" + getClient() +
             ", restaurant=" + getRestaurant() +
             "}";
     }

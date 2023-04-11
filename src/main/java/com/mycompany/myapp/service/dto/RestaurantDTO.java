@@ -15,22 +15,18 @@ public class RestaurantDTO implements Serializable {
     private UUID id;
 
     @NotNull
-    @Size(min = 3, max = 50)
     private String name;
 
     @Size(max = 200)
     private String description;
 
     @NotNull
-    @Size(min = 5, max = 100)
     private String address;
 
     @NotNull
-    @Size(min = 3, max = 50)
     private String city;
 
     @NotNull
-    @Size(min = 3, max = 50)
     private String country;
 
     @NotNull
@@ -40,6 +36,8 @@ public class RestaurantDTO implements Serializable {
     @NotNull
     @Pattern(regexp = "^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_-]+)\\.([a-zA-Z]{2,5})$")
     private String email;
+
+    private CooperativelocalDTO coop;
 
     public UUID getId() {
         return id;
@@ -105,6 +103,14 @@ public class RestaurantDTO implements Serializable {
         this.email = email;
     }
 
+    public CooperativelocalDTO getCoop() {
+        return coop;
+    }
+
+    public void setCoop(CooperativelocalDTO coop) {
+        this.coop = coop;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -138,6 +144,7 @@ public class RestaurantDTO implements Serializable {
             ", country='" + getCountry() + "'" +
             ", phone='" + getPhone() + "'" +
             ", email='" + getEmail() + "'" +
+            ", coop=" + getCoop() +
             "}";
     }
 }

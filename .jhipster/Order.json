@@ -22,25 +22,25 @@
       "fieldValidateRulesMin": "0"
     },
     {
+      "fieldName": "status",
+      "fieldType": "OrderStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CREATED (created),PAID (paid),IN_PROGRESS (in_progress),DELIVERED (delivered),CANCELED (canceled)"
+    },
+    {
       "fieldName": "deliveryAddress",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "100",
-      "fieldValidateRulesMinlength": "5"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "deliveryCity",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "50",
-      "fieldValidateRulesMinlength": "3"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "deliveryCountry",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "50",
-      "fieldValidateRulesMinlength": "3"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "deliveryTime",
@@ -61,9 +61,9 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "user",
+      "otherEntityName": "client",
       "otherEntityRelationshipName": "order",
-      "relationshipName": "user",
+      "relationshipName": "client",
       "relationshipType": "many-to-one"
     },
     {

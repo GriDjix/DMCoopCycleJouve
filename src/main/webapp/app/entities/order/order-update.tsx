@@ -8,11 +8,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IUser } from 'app/shared/model/user.model';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
+import { IClient } from 'app/shared/model/client.model';
+import { getEntities as getClients } from 'app/entities/client/client.reducer';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 import { getEntities as getRestaurants } from 'app/entities/restaurant/restaurant.reducer';
 import { IOrder } from 'app/shared/model/order.model';
+import { OrderStatus } from 'app/shared/model/enumerations/order-status.model';
 import { getEntity, updateEntity, createEntity, reset } from './order.reducer';
 
 export const OrderUpdate = () => {
@@ -23,12 +24,13 @@ export const OrderUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const users = useAppSelector(state => state.userManagement.users);
+  const clients = useAppSelector(state => state.client.entities);
   const restaurants = useAppSelector(state => state.restaurant.entities);
   const orderEntity = useAppSelector(state => state.order.entity);
   const loading = useAppSelector(state => state.order.loading);
   const updating = useAppSelector(state => state.order.updating);
   const updateSuccess = useAppSelector(state => state.order.updateSuccess);
+  const orderStatusValues = Object.keys(OrderStatus);
 
   const handleClose = () => {
     navigate('/order');
@@ -41,7 +43,7 @@ export const OrderUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getUsers({}));
+    dispatch(getClients({}));
     dispatch(getRestaurants({}));
   }, []);
 
@@ -58,7 +60,7 @@ export const OrderUpdate = () => {
     const entity = {
       ...orderEntity,
       ...values,
-      user: users.find(it => it.id.toString() === values.user.toString()),
+      client: clients.find(it => it.id.toString() === values.client.toString()),
       restaurant: restaurants.find(it => it.id.toString() === values.restaurant.toString()),
     };
 
@@ -76,10 +78,11 @@ export const OrderUpdate = () => {
           deliveryTime: displayDefaultDateTime(),
         }
       : {
+          status: 'CREATED',
           ...orderEntity,
           orderDate: convertDateTimeFromServer(orderEntity.orderDate),
           deliveryTime: convertDateTimeFromServer(orderEntity.deliveryTime),
-          user: orderEntity?.user?.id,
+          client: orderEntity?.client?.id,
           restaurant: orderEntity?.restaurant?.id,
         };
 
@@ -131,6 +134,13 @@ export const OrderUpdate = () => {
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField label={translate('coopcycleApp.order.status')} id="order-status" name="status" data-cy="status" type="select">
+                {orderStatusValues.map(orderStatus => (
+                  <option value={orderStatus} key={orderStatus}>
+                    {translate('coopcycleApp.OrderStatus.' + orderStatus)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 label={translate('coopcycleApp.order.deliveryAddress')}
                 id="order-deliveryAddress"
@@ -139,8 +149,6 @@ export const OrderUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 5, message: translate('entity.validation.minlength', { min: 5 }) },
-                  maxLength: { value: 100, message: translate('entity.validation.maxlength', { max: 100 }) },
                 }}
               />
               <ValidatedField
@@ -151,8 +159,6 @@ export const OrderUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 3, message: translate('entity.validation.minlength', { min: 3 }) },
-                  maxLength: { value: 50, message: translate('entity.validation.maxlength', { max: 50 }) },
                 }}
               />
               <ValidatedField
@@ -163,8 +169,6 @@ export const OrderUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 3, message: translate('entity.validation.minlength', { min: 3 }) },
-                  maxLength: { value: 50, message: translate('entity.validation.maxlength', { max: 50 }) },
                 }}
               />
               <ValidatedField
@@ -178,10 +182,10 @@ export const OrderUpdate = () => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField id="order-user" name="user" data-cy="user" label={translate('coopcycleApp.order.user')} type="select">
+              <ValidatedField id="order-client" name="client" data-cy="client" label={translate('coopcycleApp.order.client')} type="select">
                 <option value="" key="0" />
-                {users
-                  ? users.map(otherEntity => (
+                {clients
+                  ? clients.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

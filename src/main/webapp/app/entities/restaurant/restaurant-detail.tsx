@@ -74,6 +74,10 @@ export const RestaurantDetail = () => {
             </span>
           </dt>
           <dd>{restaurantEntity.email}</dd>
+          <dt>
+            <Translate contentKey="coopcycleApp.restaurant.coop">Coop</Translate>
+          </dt>
+          <dd>{restaurantEntity.coop ? restaurantEntity.coop.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/restaurant" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

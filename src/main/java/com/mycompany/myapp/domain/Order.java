@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mycompany.myapp.domain.enumeration.OrderStatus;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -39,18 +40,20 @@ public class Order implements Serializable {
     private Double totalPrice;
 
     @NotNull
-    @Size(min = 5, max = 100)
-    @Column(name = "delivery_address", length = 100, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private OrderStatus status;
+
+    @NotNull
+    @Column(name = "delivery_address", nullable = false)
     private String deliveryAddress;
 
     @NotNull
-    @Size(min = 3, max = 50)
-    @Column(name = "delivery_city", length = 50, nullable = false)
+    @Column(name = "delivery_city", nullable = false)
     private String deliveryCity;
 
     @NotNull
-    @Size(min = 3, max = 50)
-    @Column(name = "delivery_country", length = 50, nullable = false)
+    @Column(name = "delivery_country", nullable = false)
     private String deliveryCountry;
 
     @NotNull
@@ -63,10 +66,11 @@ public class Order implements Serializable {
     private Set<Meal> meals = new HashSet<>();
 
     @ManyToOne
-    private User user;
+    @JsonIgnoreProperties(value = { "coop", "orders" }, allowSetters = true)
+    private Client client;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "meals", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "meals", "coop", "orders" }, allowSetters = true)
     private Restaurant restaurant;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -108,6 +112,19 @@ public class Order implements Serializable {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public OrderStatus getStatus() {
+        return this.status;
+    }
+
+    public Order status(OrderStatus status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public String getDeliveryAddress() {
@@ -193,16 +210,16 @@ public class Order implements Serializable {
         return this;
     }
 
-    public User getUser() {
-        return this.user;
+    public Client getClient() {
+        return this.client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public Order user(User user) {
-        this.setUser(user);
+    public Order client(Client client) {
+        this.setClient(client);
         return this;
     }
 
@@ -245,6 +262,7 @@ public class Order implements Serializable {
             "id=" + getId() +
             ", orderDate='" + getOrderDate() + "'" +
             ", totalPrice=" + getTotalPrice() +
+            ", status='" + getStatus() + "'" +
             ", deliveryAddress='" + getDeliveryAddress() + "'" +
             ", deliveryCity='" + getDeliveryCity() + "'" +
             ", deliveryCountry='" + getDeliveryCountry() + "'" +

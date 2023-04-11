@@ -1,4 +1,5 @@
 import { IMeal } from 'app/shared/model/meal.model';
+import { ICooperativelocal } from 'app/shared/model/cooperativelocal.model';
 import { IOrder } from 'app/shared/model/order.model';
 
 export interface IRestaurant {
@@ -11,6 +12,7 @@ export interface IRestaurant {
   phone?: string;
   email?: string;
   meals?: IMeal[] | null;
+  coop?: ICooperativelocal | null;
   orders?: IOrder[] | null;
 }
 

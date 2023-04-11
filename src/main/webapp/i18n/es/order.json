@@ -20,12 +20,13 @@
       "id": "Id",
       "orderDate": "Order Date",
       "totalPrice": "Total Price",
+      "status": "Status",
       "deliveryAddress": "Delivery Address",
       "deliveryCity": "Delivery City",
       "deliveryCountry": "Delivery Country",
       "deliveryTime": "Delivery Time",
       "meal": "Meal",
-      "user": "User",
+      "client": "Client",
       "restaurant": "Restaurant"
     }
   }

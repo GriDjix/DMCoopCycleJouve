@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Order;
+import com.mycompany.myapp.domain.enumeration.OrderStatus;
 import com.mycompany.myapp.repository.OrderRepository;
 import com.mycompany.myapp.service.dto.OrderDTO;
 import com.mycompany.myapp.service.mapper.OrderMapper;
@@ -41,6 +42,9 @@ class OrderResourceIT {
 
     private static final Double DEFAULT_TOTAL_PRICE = 0D;
     private static final Double UPDATED_TOTAL_PRICE = 1D;
+
+    private static final OrderStatus DEFAULT_STATUS = OrderStatus.CREATED;
+    private static final OrderStatus UPDATED_STATUS = OrderStatus.PAID;
 
     private static final String DEFAULT_DELIVERY_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_DELIVERY_ADDRESS = "BBBBBBBBBB";
@@ -81,6 +85,7 @@ class OrderResourceIT {
         Order order = new Order()
             .orderDate(DEFAULT_ORDER_DATE)
             .totalPrice(DEFAULT_TOTAL_PRICE)
+            .status(DEFAULT_STATUS)
             .deliveryAddress(DEFAULT_DELIVERY_ADDRESS)
             .deliveryCity(DEFAULT_DELIVERY_CITY)
             .deliveryCountry(DEFAULT_DELIVERY_COUNTRY)
@@ -98,6 +103,7 @@ class OrderResourceIT {
         Order order = new Order()
             .orderDate(UPDATED_ORDER_DATE)
             .totalPrice(UPDATED_TOTAL_PRICE)
+            .status(UPDATED_STATUS)
             .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
             .deliveryCity(UPDATED_DELIVERY_CITY)
             .deliveryCountry(UPDATED_DELIVERY_COUNTRY)
@@ -126,6 +132,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(DEFAULT_ORDER_DATE);
         assertThat(testOrder.getTotalPrice()).isEqualTo(DEFAULT_TOTAL_PRICE);
+        assertThat(testOrder.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testOrder.getDeliveryAddress()).isEqualTo(DEFAULT_DELIVERY_ADDRESS);
         assertThat(testOrder.getDeliveryCity()).isEqualTo(DEFAULT_DELIVERY_CITY);
         assertThat(testOrder.getDeliveryCountry()).isEqualTo(DEFAULT_DELIVERY_COUNTRY);
@@ -175,6 +182,24 @@ class OrderResourceIT {
         int databaseSizeBeforeTest = orderRepository.findAll().size();
         // set the field null
         order.setTotalPrice(null);
+
+        // Create the Order, which fails.
+        OrderDTO orderDTO = orderMapper.toDto(order);
+
+        restOrderMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(orderDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Order> orderList = orderRepository.findAll();
+        assertThat(orderList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = orderRepository.findAll().size();
+        // set the field null
+        order.setStatus(null);
 
         // Create the Order, which fails.
         OrderDTO orderDTO = orderMapper.toDto(order);
@@ -273,6 +298,7 @@ class OrderResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().toString())))
             .andExpect(jsonPath("$.[*].orderDate").value(hasItem(DEFAULT_ORDER_DATE.toString())))
             .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(DEFAULT_TOTAL_PRICE.doubleValue())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].deliveryAddress").value(hasItem(DEFAULT_DELIVERY_ADDRESS)))
             .andExpect(jsonPath("$.[*].deliveryCity").value(hasItem(DEFAULT_DELIVERY_CITY)))
             .andExpect(jsonPath("$.[*].deliveryCountry").value(hasItem(DEFAULT_DELIVERY_COUNTRY)))
@@ -293,6 +319,7 @@ class OrderResourceIT {
             .andExpect(jsonPath("$.id").value(order.getId().toString()))
             .andExpect(jsonPath("$.orderDate").value(DEFAULT_ORDER_DATE.toString()))
             .andExpect(jsonPath("$.totalPrice").value(DEFAULT_TOTAL_PRICE.doubleValue()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.deliveryAddress").value(DEFAULT_DELIVERY_ADDRESS))
             .andExpect(jsonPath("$.deliveryCity").value(DEFAULT_DELIVERY_CITY))
             .andExpect(jsonPath("$.deliveryCountry").value(DEFAULT_DELIVERY_COUNTRY))
@@ -321,6 +348,7 @@ class OrderResourceIT {
         updatedOrder
             .orderDate(UPDATED_ORDER_DATE)
             .totalPrice(UPDATED_TOTAL_PRICE)
+            .status(UPDATED_STATUS)
             .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
             .deliveryCity(UPDATED_DELIVERY_CITY)
             .deliveryCountry(UPDATED_DELIVERY_COUNTRY)
@@ -341,6 +369,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
         assertThat(testOrder.getTotalPrice()).isEqualTo(UPDATED_TOTAL_PRICE);
+        assertThat(testOrder.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testOrder.getDeliveryAddress()).isEqualTo(UPDATED_DELIVERY_ADDRESS);
         assertThat(testOrder.getDeliveryCity()).isEqualTo(UPDATED_DELIVERY_CITY);
         assertThat(testOrder.getDeliveryCountry()).isEqualTo(UPDATED_DELIVERY_COUNTRY);
@@ -426,6 +455,7 @@ class OrderResourceIT {
 
         partialUpdatedOrder
             .orderDate(UPDATED_ORDER_DATE)
+            .status(UPDATED_STATUS)
             .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
             .deliveryCity(UPDATED_DELIVERY_CITY)
             .deliveryCountry(UPDATED_DELIVERY_COUNTRY)
@@ -445,6 +475,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
         assertThat(testOrder.getTotalPrice()).isEqualTo(DEFAULT_TOTAL_PRICE);
+        assertThat(testOrder.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testOrder.getDeliveryAddress()).isEqualTo(UPDATED_DELIVERY_ADDRESS);
         assertThat(testOrder.getDeliveryCity()).isEqualTo(UPDATED_DELIVERY_CITY);
         assertThat(testOrder.getDeliveryCountry()).isEqualTo(UPDATED_DELIVERY_COUNTRY);
@@ -466,6 +497,7 @@ class OrderResourceIT {
         partialUpdatedOrder
             .orderDate(UPDATED_ORDER_DATE)
             .totalPrice(UPDATED_TOTAL_PRICE)
+            .status(UPDATED_STATUS)
             .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
             .deliveryCity(UPDATED_DELIVERY_CITY)
             .deliveryCountry(UPDATED_DELIVERY_COUNTRY)
@@ -485,6 +517,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
         assertThat(testOrder.getTotalPrice()).isEqualTo(UPDATED_TOTAL_PRICE);
+        assertThat(testOrder.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testOrder.getDeliveryAddress()).isEqualTo(UPDATED_DELIVERY_ADDRESS);
         assertThat(testOrder.getDeliveryCity()).isEqualTo(UPDATED_DELIVERY_CITY);
         assertThat(testOrder.getDeliveryCountry()).isEqualTo(UPDATED_DELIVERY_COUNTRY);

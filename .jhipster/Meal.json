@@ -13,9 +13,7 @@
     {
       "fieldName": "name",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "50",
-      "fieldValidateRulesMinlength": "3"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "description",

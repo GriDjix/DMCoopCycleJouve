@@ -1,11 +1,11 @@
-id;order_date;total_price;delivery_address;delivery_city;delivery_country;delivery_time
-75bbbeca-5faa-49a0-b384-ec78767c7f9c;2023-04-09T14:25:13;17935;Account Outdoors Investment;e-commerce feed;Slovenia Cotton;2023-04-09T18:05:27
-279fe84a-10ce-426d-ba4f-4b9d19747437;2023-04-09T14:23:30;45390;transitional;Brand;impactful protocol programming;2023-04-09T09:43:34
-d726279f-bcad-4802-9069-c8f9d45274aa;2023-04-09T09:48:31;91977;invoice bypassing Table;object-oriented visionary Ball;Refined Cambridgeshire primary;2023-04-08T22:46:50
-42125f75-c430-4b84-94e2-3c0ffd3abea9;2023-04-09T00:47:24;21088;Chips Denar Belarus;niches software Money;Networked;2023-04-09T19:20:07
-ff6a8ac4-90de-44e6-8a22-6328a48a93e4;2023-04-09T19:53:07;96538;Mountain Senegal;withdrawal;Engineer pixel improvement;2023-04-09T03:01:15
-874d9f26-f820-4fb5-b3f2-be81e6de2a98;2023-04-09T05:16:08;69900;HomeX;Refined;virtual Account;2023-04-09T19:24:25
-080742ba-4276-4a8e-810d-119fe0caca99;2023-04-09T16:40:10;19401;firewall metrics redundant;Towels;Won;2023-04-09T12:16:03
-bd1e81ce-98ae-4a0d-9c57-92c50d1fb7d4;2023-04-08T23:18:57;37494;Arizona methodology Account;harness Computers encompassing;local withdrawal Federation;2023-04-09T04:45:36
-98e0e209-5e2c-4bbf-b141-4a407e4f259e;2023-04-09T12:44:26;82278;Tuna challenge;Cambridgeshire whiteboard;Checking open-source program;2023-04-09T09:09:48
-d6a8a193-19c5-45f0-afcf-7ec1d443f3e8;2023-04-09T14:41:56;99483;Auto lime;French Tasty Prairie;Savings Wisconsin Cedi;2023-04-09T11:01:39
+id;order_date;total_price;status;delivery_address;delivery_city;delivery_country;delivery_time
+75bbbeca-5faa-49a0-b384-ec78767c7f9c;2023-04-09T14:25:13;17935;CANCELED;open-source RSS;Tools Account;Account online deliverables;2023-04-09T18:03:53
+79fe84a1-0ce2-46d3-a4f4-b9d197474374;2023-04-09T10:42:44;9978;PAID;proactive Practical impactful;Handcrafted Cambridgeshire Table;Account wireless;2023-04-09T08:29:21
+02d069c8-f9d4-4527-8aa7-edaced11270f;2023-04-09T14:42:53;73213;CANCELED;ADP methodical;hacking;Bacon Tasty Computer;2023-04-09T13:08:23
+f75c430b-8494-4e23-80ff-d3abea9d3d1d;2023-04-09T09:31:56;96859;CANCELED;Mexico Licensed niches;programming;24/7;2023-04-09T09:37:54
+01ff6a8a-c490-4de4-a6ca-226328a48a93;2023-04-08T23:32:30;27378;CREATED;of Awesome withdrawal;Engineer pixel improvement;Berkshire COM Shirt;2023-04-09T09:25:36
+20fb533f-2be8-41e6-9e2a-98ab499241d8;2023-04-09T11:33:19;79169;PAID;Account Small;Forges;withdrawal Berkshire Cambridgeshire;2023-04-09T19:01:47
+0d119fe0-caca-4993-bdb8-b6d6c6112952;2023-04-09T04:55:55;43032;CANCELED;transmitter Global;COM invoice Sports;bleeding-edge Cheese Sports;2023-04-08T22:53:26
+b7d4e5b8-0a59-4091-bf65-8037456f498a;2023-04-09T09:38:32;10091;IN_PROGRESS;Card Turkmenistan CSS;visionary wireless;Security Gorgeous Ameliorated;2023-04-08T23:28:34
+4f259e5d-6159-4ab5-aa88-e26aafa07d37;2023-04-09T04:02:06;22872;CREATED;AI Nicaragua;blue cross-platform;Cheese Cambridgeshire Licensed;2023-04-09T14:41:10
+3f3e84fa-9d13-4bbc-8411-f37a5d9259f9;2023-04-09T05:12:52;28810;DELIVERED;back-end bypass;Avon;Account RAM Virginia;2023-04-09T15:58:18

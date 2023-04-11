@@ -58,6 +58,9 @@ export const Order = () => {
                   <Translate contentKey="coopcycleApp.order.totalPrice">Total Price</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="coopcycleApp.order.status">Status</Translate>
+                </th>
+                <th>
                   <Translate contentKey="coopcycleApp.order.deliveryAddress">Delivery Address</Translate>
                 </th>
                 <th>
@@ -70,7 +73,7 @@ export const Order = () => {
                   <Translate contentKey="coopcycleApp.order.deliveryTime">Delivery Time</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="coopcycleApp.order.user">User</Translate>
+                  <Translate contentKey="coopcycleApp.order.client">Client</Translate>
                 </th>
                 <th>
                   <Translate contentKey="coopcycleApp.order.restaurant">Restaurant</Translate>
@@ -88,11 +91,14 @@ export const Order = () => {
                   </td>
                   <td>{order.orderDate ? <TextFormat type="date" value={order.orderDate} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{order.totalPrice}</td>
+                  <td>
+                    <Translate contentKey={`coopcycleApp.OrderStatus.${order.status}`} />
+                  </td>
                   <td>{order.deliveryAddress}</td>
                   <td>{order.deliveryCity}</td>
                   <td>{order.deliveryCountry}</td>
                   <td>{order.deliveryTime ? <TextFormat type="date" value={order.deliveryTime} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{order.user ? order.user.id : ''}</td>
+                  <td>{order.client ? <Link to={`/client/${order.client.id}`}>{order.client.id}</Link> : ''}</td>
                   <td>{order.restaurant ? <Link to={`/restaurant/${order.restaurant.id}`}>{order.restaurant.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

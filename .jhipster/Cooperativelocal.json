@@ -1,0 +1,49 @@
+{
+  "applications": ["coopcycle"],
+  "changelogDate": "20230411162835",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "cooperativelocal",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Cooperativelocal",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "coop",
+      "relationshipName": "client",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "restaurant",
+      "otherEntityRelationshipName": "coop",
+      "relationshipName": "restaurant",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

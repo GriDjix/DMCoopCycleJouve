@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { ICooperativelocal } from 'app/shared/model/cooperativelocal.model';
+import { getEntities as getCooperativelocals } from 'app/entities/cooperativelocal/cooperativelocal.reducer';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 import { getEntity, updateEntity, createEntity, reset } from './restaurant.reducer';
 
@@ -19,6 +21,7 @@ export const RestaurantUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const cooperativelocals = useAppSelector(state => state.cooperativelocal.entities);
   const restaurantEntity = useAppSelector(state => state.restaurant.entity);
   const loading = useAppSelector(state => state.restaurant.loading);
   const updating = useAppSelector(state => state.restaurant.updating);
@@ -34,6 +37,8 @@ export const RestaurantUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getCooperativelocals({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,7 @@ export const RestaurantUpdate = () => {
     const entity = {
       ...restaurantEntity,
       ...values,
+      coop: cooperativelocals.find(it => it.id.toString() === values.coop.toString()),
     };
 
     if (isNew) {
@@ -60,6 +66,7 @@ export const RestaurantUpdate = () => {
       ? {}
       : {
           ...restaurantEntity,
+          coop: restaurantEntity?.coop?.id,
         };
 
   return (
@@ -95,8 +102,6 @@ export const RestaurantUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 3, message: translate('entity.validation.minlength', { min: 3 }) },
-                  maxLength: { value: 50, message: translate('entity.validation.maxlength', { max: 50 }) },
                 }}
               />
               <ValidatedField
@@ -117,8 +122,6 @@ export const RestaurantUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 5, message: translate('entity.validation.minlength', { min: 5 }) },
-                  maxLength: { value: 100, message: translate('entity.validation.maxlength', { max: 100 }) },
                 }}
               />
               <ValidatedField
@@ -129,8 +132,6 @@ export const RestaurantUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 3, message: translate('entity.validation.minlength', { min: 3 }) },
-                  maxLength: { value: 50, message: translate('entity.validation.maxlength', { max: 50 }) },
                 }}
               />
               <ValidatedField
@@ -141,8 +142,6 @@ export const RestaurantUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 3, message: translate('entity.validation.minlength', { min: 3 }) },
-                  maxLength: { value: 50, message: translate('entity.validation.maxlength', { max: 50 }) },
                 }}
               />
               <ValidatedField
@@ -175,6 +174,22 @@ export const RestaurantUpdate = () => {
                   },
                 }}
               />
+              <ValidatedField
+                id="restaurant-coop"
+                name="coop"
+                data-cy="coop"
+                label={translate('coopcycleApp.restaurant.coop')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {cooperativelocals
+                  ? cooperativelocals.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/restaurant" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

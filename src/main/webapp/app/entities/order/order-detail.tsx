@@ -45,6 +45,12 @@ export const OrderDetail = () => {
           </dt>
           <dd>{orderEntity.totalPrice}</dd>
           <dt>
+            <span id="status">
+              <Translate contentKey="coopcycleApp.order.status">Status</Translate>
+            </span>
+          </dt>
+          <dd>{orderEntity.status}</dd>
+          <dt>
             <span id="deliveryAddress">
               <Translate contentKey="coopcycleApp.order.deliveryAddress">Delivery Address</Translate>
             </span>
@@ -69,9 +75,9 @@ export const OrderDetail = () => {
           </dt>
           <dd>{orderEntity.deliveryTime ? <TextFormat value={orderEntity.deliveryTime} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
           <dt>
-            <Translate contentKey="coopcycleApp.order.user">User</Translate>
+            <Translate contentKey="coopcycleApp.order.client">Client</Translate>
           </dt>
-          <dd>{orderEntity.user ? orderEntity.user.id : ''}</dd>
+          <dd>{orderEntity.client ? orderEntity.client.id : ''}</dd>
           <dt>
             <Translate contentKey="coopcycleApp.order.restaurant">Restaurant</Translate>
           </dt>

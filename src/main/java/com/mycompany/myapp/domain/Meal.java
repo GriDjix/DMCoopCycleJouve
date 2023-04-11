@@ -26,8 +26,7 @@ public class Meal implements Serializable {
     private UUID id;
 
     @NotNull
-    @Size(min = 3, max = 50)
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @NotNull
@@ -41,11 +40,11 @@ public class Meal implements Serializable {
     private Double price;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "meals", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "meals", "coop", "orders" }, allowSetters = true)
     private Restaurant restaurant;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "meals", "user", "restaurant" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "meals", "client", "restaurant" }, allowSetters = true)
     private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

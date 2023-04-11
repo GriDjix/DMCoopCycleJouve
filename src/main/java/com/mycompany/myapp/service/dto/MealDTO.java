@@ -15,7 +15,6 @@ public class MealDTO implements Serializable {
     private UUID id;
 
     @NotNull
-    @Size(min = 3, max = 50)
     private String name;
 
     @NotNull

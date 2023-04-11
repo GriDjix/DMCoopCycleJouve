@@ -108,8 +108,6 @@ export const MealUpdate = () => {
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
-                  minLength: { value: 3, message: translate('entity.validation.minlength', { min: 3 }) },
-                  maxLength: { value: 50, message: translate('entity.validation.maxlength', { max: 50 }) },
                 }}
               />
               <ValidatedField

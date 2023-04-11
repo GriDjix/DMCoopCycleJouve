@@ -13,9 +13,7 @@
     {
       "fieldName": "name",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "50",
-      "fieldValidateRulesMinlength": "3"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "description",
@@ -26,23 +24,17 @@
     {
       "fieldName": "address",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "100",
-      "fieldValidateRulesMinlength": "5"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "city",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "50",
-      "fieldValidateRulesMinlength": "3"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "country",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "50",
-      "fieldValidateRulesMinlength": "3"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "phone",
@@ -68,6 +60,12 @@
       "otherEntityRelationshipName": "restaurant",
       "relationshipName": "meal",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cooperativelocal",
+      "otherEntityRelationshipName": "restaurant",
+      "relationshipName": "coop",
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "order",

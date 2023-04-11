@@ -72,6 +72,9 @@ export const Restaurant = () => {
                 <th>
                   <Translate contentKey="coopcycleApp.restaurant.email">Email</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="coopcycleApp.restaurant.coop">Coop</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -90,6 +93,7 @@ export const Restaurant = () => {
                   <td>{restaurant.country}</td>
                   <td>{restaurant.phone}</td>
                   <td>{restaurant.email}</td>
+                  <td>{restaurant.coop ? <Link to={`/cooperativelocal/${restaurant.coop.id}`}>{restaurant.coop.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/restaurant/${restaurant.id}`} color="info" size="sm" data-cy="entityDetailsButton">

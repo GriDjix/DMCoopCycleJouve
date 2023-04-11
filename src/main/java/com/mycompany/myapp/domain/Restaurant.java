@@ -28,8 +28,7 @@ public class Restaurant implements Serializable {
     private UUID id;
 
     @NotNull
-    @Size(min = 3, max = 50)
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Size(max = 200)
@@ -37,18 +36,15 @@ public class Restaurant implements Serializable {
     private String description;
 
     @NotNull
-    @Size(min = 5, max = 100)
-    @Column(name = "address", length = 100, nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
     @NotNull
-    @Size(min = 3, max = 50)
-    @Column(name = "city", length = 50, nullable = false)
+    @Column(name = "city", nullable = false)
     private String city;
 
     @NotNull
-    @Size(min = 3, max = 50)
-    @Column(name = "country", length = 50, nullable = false)
+    @Column(name = "country", nullable = false)
     private String country;
 
     @NotNull
@@ -66,9 +62,13 @@ public class Restaurant implements Serializable {
     @JsonIgnoreProperties(value = { "restaurant", "order" }, allowSetters = true)
     private Set<Meal> meals = new HashSet<>();
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "clients", "restaurants" }, allowSetters = true)
+    private Cooperativelocal coop;
+
     @OneToMany(mappedBy = "restaurant")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "meals", "user", "restaurant" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "meals", "client", "restaurant" }, allowSetters = true)
     private Set<Order> orders = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -205,6 +205,19 @@ public class Restaurant implements Serializable {
     public Restaurant removeMeal(Meal meal) {
         this.meals.remove(meal);
         meal.setRestaurant(null);
+        return this;
+    }
+
+    public Cooperativelocal getCoop() {
+        return this.coop;
+    }
+
+    public void setCoop(Cooperativelocal cooperativelocal) {
+        this.coop = cooperativelocal;
+    }
+
+    public Restaurant coop(Cooperativelocal cooperativelocal) {
+        this.setCoop(cooperativelocal);
         return this;
     }
 
